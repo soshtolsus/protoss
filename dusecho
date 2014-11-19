@@ -7,6 +7,9 @@ Dgram Unix Socket test program
 import socket
 import sys
 import argparse
+import logging
+
+logger = None
 
 def getargs():
 	parser = argparse.ArgumentParser(description=__doc__)
@@ -24,6 +27,11 @@ def getargs():
 	return parser.parse_args()
 
 def main(args):
+	global logger
+
+	logging.basicConfig()
+	logger = logging.getLogger()
+
 	with socket.socket(family=socket.AF_UNIX, type=socket.SOCK_DGRAM) as sock:
 		args.func(args, sock)
 
